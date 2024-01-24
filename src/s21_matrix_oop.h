@@ -24,26 +24,38 @@ public:
     void MulNumber(const double num);
     void MulMatrix(const S21Matrix& other);
     S21Matrix Transpose();
-    S21Matrix CalcComplements();
+    S21Matrix CalcComplements() const;
     double Determinant() const;
+    S21Matrix InverseMatrix() const ;
+
+    void SetDiagonal(double *diag_mass, int n);
+    void PrintMatrix() const;
+    void PrintMatrix();
+    void FillByMass(double *mass);
+
+
+    S21Matrix operator+(const S21Matrix& other) const;
+    S21Matrix operator-(const S21Matrix& other) const;
+    S21Matrix operator*(const double num) const;
+    S21Matrix operator*(const S21Matrix& other) const;
+    bool operator==(const S21Matrix& other) const;
+    S21Matrix& operator=(const S21Matrix& other);
+    S21Matrix& operator+=(const S21Matrix& other);
+    S21Matrix& operator-=(const S21Matrix& other);
+    S21Matrix& operator*=(const double num);
+    S21Matrix& operator*=(const S21Matrix& other);
+    double& operator()(int i, int j);
+    const double& operator()(int i, int j) const;
+
 
 private:
     void allocateMatrix();
     void deallocateMatrix();
-    void copyMatrix(const double** source);
+    void copyMatrix(const double* const* source);
     S21Matrix RemoveRowAndColumn(int row, int col) const;
     void DoZero(S21Matrix& matrix, int i, int j) const;
-    void S21Matrix::SwapRows(S21Matrix& matrix, int i, int j) const;
     int CheckForZero(S21Matrix& matrix, int k, double& det) const;
     bool EliminateZeros(S21Matrix& copy, double& det) const;
-    S21Matrix InverseMatrix() const ;
-    bool EliminateZeros(S21Matrix& result, S21Matrix& eye, double& det) const;
-    void SwapRowsInvert(S21Matrix& result, S21Matrix& eye, int i, int j) const ;
-    int CheckForZeroInvert(S21Matrix& matrix, S21Matrix& eye, int k, double& det) const;
-    void DoZeroInvert(S21Matrix& result, S21Matrix& eye, int i, int j) const ;
-    void DoZeroFullInvert(S21Matrix& result, S21Matrix& eye, int i, int j) const;
-    void DoDiagonalInvert(S21Matrix& result, S21Matrix& eye) const;
+    void SwapRows(S21Matrix& matrix, int i, int j) const;
     void ResetEye();
-    void InvertInvert(S21Matrix& result, S21Matrix& eye) const ;
-
 };
